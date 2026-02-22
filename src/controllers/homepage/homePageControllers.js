@@ -10,6 +10,7 @@ const getHomePageData = async (req, res) => {
             success: true,
             data: {
                 appConfig: data.appConfig,
+                gridConfig: data.gridConfig,
                 sidebarConfig: data.sidebarConfig
             },
             message: "Home Page Data Fetched Successfully"
@@ -31,10 +32,72 @@ const createHomePageData = async (req, res) => {
                 appDescription: "Talk to verified astrologers anytime, anywhere.",
                 logo: "https://astroguruvinodji.com/wp-content/uploads/2022/08/Top-astrologer-in-delhi.jpg",
                 favicon: "https://astroguruvinodji.com/wp-content/uploads/2022/08/Top-astrologer-in-delhi.jpg",
-                showFreeChatButton: true,
-                showPremiumChatButton: true,
-                showCallButton: true,
-                showVideoButton: false
+                showFreeChatButton: {
+                    show: true,
+                    buttonText: "Free Chat",
+                    buttonIcon: "chat",
+                    textColor: "#000000",
+                    backgroundColor: "#ffffff",
+
+                },
+                showPremiumChatButton: {
+                    show: true,
+                    buttonText: "Premium Chat",
+                    buttonIcon: "chat",
+                    textColor: "#000000",
+                    backgroundColor: "#ffffff",
+                },
+                showCallButton: {
+                    show: true,
+                    buttonText: "Call",
+                    buttonIcon: "call",
+                    textColor: "#000000",
+                    backgroundColor: "#ffffff",
+                },
+                showVideoButton: {
+                    show: true,
+                    buttonText: "Video",
+                    buttonIcon: "video",
+                    textColor: "#000000",
+                    backgroundColor: "#ffffff",
+                },
+                showVideoButton: {
+                    show: true,
+                    buttonText: "Video",
+                    buttonIcon: "video",
+                    textColor: "#000000",
+                    backgroundColor: "#ffffff",
+                },
+
+            },
+            gridConfig: {
+                showKundliButton: {
+                    show: true,
+                    route: "/kundli",
+                    text: "Kundli",
+                    icon: "kundli",
+                    logo: "https://astroguruvinodji.com/wp-content/uploads/2022/08/Top-astrologer-in-delhi.jpg",
+                    textColor: "#000000",
+                    backgroundColor: "#ffffff",
+                },
+                showZodiacSigns: {
+                    show: true,
+                    route: "/zodiac-signs",
+                    text: "Zodiac Signs",
+                    icon: "zodiac",
+                    logo: "https://astroguruvinodji.com/wp-content/uploads/2022/08/Top-astrologer-in-delhi.jpg",
+                    textColor: "#000000",
+                    backgroundColor: "#ffffff",
+                },
+                horoscope: {
+                    show: true,
+                    route: "/horoscope",
+                    text: "Horoscope",
+                    icon: "horoscope",
+                    logo: "https://astroguruvinodji.com/wp-content/uploads/2022/08/Top-astrologer-in-delhi.jpg",    
+                    textColor: "#000000",
+                    backgroundColor: "#ffffff",
+                },
             },
             sidebarConfig: {
                 showSidebar: true,
