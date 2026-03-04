@@ -7,7 +7,7 @@ connectDB();
 // Routes import
 const homePageRoutes = require("./routes/homepage/homePageRoutes");
 const astrologerRoutes = require("./routes/astrologer/astrologerRoutes");
-const userSidebarRoutes = require("./routes/user/userSidebarRoute");
+const user = require("./routes/user/userRoute");
 // Test route
 app.get("/", (req, res) => {
     res.send("Server is running");
@@ -16,7 +16,7 @@ app.get("/", (req, res) => {
 // routes
 app.use("/homepage", homePageRoutes);
 app.use("/astrologer", astrologerRoutes);
-app.use("/user", userSidebarRoutes);
+app.use("/user", user);
 
 const port = process.env.PORT || 3000;
 
