@@ -81,6 +81,34 @@ const homePageSchema = new Schema(
                 textColor: String,
                 backgroundColor: String,
             },
+            showKundliButton2: {
+                show: Boolean,
+                route: String,
+                text: String,
+                icon: String,
+                logo: String,
+                textColor: String,
+                backgroundColor: String,
+            },
+            showZodiacSigns2: {
+                show: Boolean,
+                route: String,
+                text: String,
+                icon: String,
+                logo: String,
+                textColor: String,
+                backgroundColor: String,
+            },
+            horoscope2: {
+                show: Boolean,
+                route: String,
+                text: String,
+                icon: String,
+                logo: String,
+                textColor: String,
+                backgroundColor: String,
+            },
+
         },
         sidebarConfig: {
             showSidebar: {
