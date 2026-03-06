@@ -4,33 +4,11 @@ const { callOpenRouter } = require('./openRouterService');
 
 const getAiChatResponse = async (userMessage, chatHistory = [], userDetails = null) => {
     try {
-        // Step 1: Classify the message type using AI
-        const classificationMessages = [
-            {
-                role: "system",
-                content: "Classify the following user message into one of these categories: astro, career, relationship. Respond with only the category name in lowercase, nothing else."
-            },
-            {
-                role: "user",
-                content: userMessage
-            }
-        ];
-
-        const classificationResponse = await callOpenRouter(classificationMessages);
-        let type = classificationResponse.trim().toLowerCase();
-
-        // Validate type, default to astro if invalid
-        if (!['astro', 'career', 'relationship'].includes(type)) {
-            type = 'astro';
-        }
-
-        // Step 2: Generate response using the classified type
         const userContext = buildUserContext(userDetails);
-
         const messages = [
             {
                 role: "system",
-                content: SYSTEM_PROMPTS[type] + userContext
+                content: SYSTEM_PROMPTS.astro + userContext
             }
         ];
 
