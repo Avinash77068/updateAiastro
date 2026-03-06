@@ -1,6 +1,6 @@
 const User = require("../../models/user/userModel");
 const bcrypt = require("bcryptjs");
-
+const { getAiChatResponse } = require("../../middleware/ai-utils");
 // @desc    Register user
 // @route   POST /user/signup
 // @access  Public
@@ -339,11 +339,82 @@ const updateProfile = async (req, res) => {
     }
 };
 
+// @chat for the user
+const chatResponse = async (req, res) => {
+    try {
+        const { userId, message } = req.body;
+
+        if (!userId || !message) {
+            return res.status(400).json({
+                success: false,
+                message: "userId and message are required"
+            });
+        }
+
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            });
+        }
+
+        const userDetails = {
+            name: user.name,
+            dateOfBirth: user.dateOfBirth,
+            place: user.place,
+            gender: user.gender,
+            phoneNumber: user.phone
+        };
+
+        const astroResponse = await getAiChatResponse(message, user.chat, userDetails);
+        if (!astroResponse || astroResponse === "") {
+            user.chat.push({
+                message: message,
+                sender: "user",
+                astroResponse: "Sorry, Unable to Understand Your Query",
+                timestamp: new Date()
+            });
+        }
+        else {
+            user.chat.push({
+                message: message,
+                sender: "user",
+                astroResponse: astroResponse,
+                timestamp: new Date()
+            });
+
+        }
+
+
+        await user.save();
+
+        return res.json({
+            success: true,
+            message: "Chat created successfully",
+            data: {
+                message: message,
+                sender: "user",
+                astroResponse: astroResponse,
+                timestamp: user.chat[user.chat.length - 1].timestamp,
+                _id: user.chat[user.chat.length - 1]._id
+            }
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Error creating chat",
+            error: error.message
+        });
+    }
+}
 module.exports = {
     signup,
     login,
     sendOTP,
     verifyOTP,
     getProfile,
-    updateProfile
+    updateProfile,
+    chatResponse
 };

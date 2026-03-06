@@ -51,7 +51,23 @@ const userSchema = new mongoose.Schema({
     },
     lastLogin: {
         type: Date
-    }
+    },
+    dateOfBirth: {
+        type: Date
+    },
+    place: {
+        type: String
+    },
+    gender: {
+        type: String,
+        enum: ["male", "female", "other"]
+    },
+    chat: [{
+        message: String,
+        sender: String,
+        astroResponse: String,
+        timestamp: Date
+    }]
 }, {
     timestamps: true
 });
