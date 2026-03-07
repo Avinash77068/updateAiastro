@@ -6,29 +6,30 @@ const { getAiChatResponse } = require("../../middleware/ai-utils");
 // @access  Public
 const signup = async (req, res) => {
     try {
-        const { name, email, password, phone } = req.body;
+        const { name, email, password, phone, dateOfBirth, gender, place, } = req.body;
 
         // Validation
-        if (!name || !email || !password || !phone) {
+        if (!name  || !password || !dateOfBirth || !gender || !place) {
             return res.status(400).json({
                 success: false,
                 message: "Please provide all required fields"
             });
         }
-
-        // Check if user already exists
-        const existingUser = await User.findOne({
-            $or: [{ email: email.toLowerCase() }, { phone }]
-        });
-
-        if (existingUser) {
-            return res.status(400).json({
-                success: false,
-                message: existingUser.email === email.toLowerCase()
-                    ? "Email already registered"
-                    : "Phone number already registered"
+        if (email || phone) {
+            const existingUser = await User.findOne({
+                $or: [{ email: email.toLowerCase() }, { phone }]
             });
+
+            if (existingUser) {
+                return res.status(400).json({
+                    success: false,
+                    message: existingUser.email === email.toLowerCase()
+                        ? "Email already registered"
+                        : "Phone number already registered"
+                });
+            }
         }
+       
 
         // Create user with hashed password
         const salt = await bcrypt.genSalt(12);
@@ -38,7 +39,10 @@ const signup = async (req, res) => {
             name,
             email: email.toLowerCase(),
             password: hashedPassword,
-            phone
+            phone,
+            dateOfBirth,
+            gender,
+            place
         });
 
         // Generate token
@@ -53,6 +57,9 @@ const signup = async (req, res) => {
                     name: user.name,
                     email: user.email,
                     phone: user.phone,
+                    dateOfBirth: user.dateOfBirth,
+                    gender: user.gender,
+                    place: user.place,
                     isVerified: user.isVerified,
                     role: user.role
                 },

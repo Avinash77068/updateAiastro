@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: [true, "Please add an email"],
+        required: [false, "Please add an email"],
         unique: true,
         lowercase: true,
         match: [
@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
     },
     phone: {
         type: String,
-        required: [true, "Please add a phone number"],
+        required: [false, "Please add a phone number"],
         unique: true,
         match: [/^[0-9]{10}$/, "Please add a valid 10-digit phone number"]
     },
