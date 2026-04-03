@@ -1,6 +1,6 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const {
+import {
     signup,
     login,
     sendOTP,
@@ -8,12 +8,12 @@ const {
     getProfile,
     updateProfile,
     chatResponse
-} = require("../../controllers/user/userController");
+} from "../../controllers/user/userController.js";
 
 // Import auth middleware if it exists
 let protect;
 try {
-    const { protect: authProtect } = require("../../middleware/auth");
+    const { protect: authProtect } = await import("../../middleware/auth.js");
     protect = authProtect;
 } catch (error) {
     // Create basic auth middleware if it doesn't exist
@@ -40,4 +40,4 @@ router.post("/chat", chatResponse)
 router.get("/profile", protect, getProfile);
 router.put("/profile", protect, updateProfile);
 
-module.exports = router;
+export default router;

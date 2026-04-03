@@ -1,6 +1,6 @@
-const SYSTEM_PROMPTS = require('./prompts');
-const { buildUserContext } = require('./helper');
-const { callOpenRouter } = require('./openRouterService');
+import SYSTEM_PROMPTS from './prompts.js';
+import { buildUserContext } from './helper.js';
+import { callOpenRouter } from './openRouterService.js';
 
 const getAiChatResponse = async (userMessage, chatHistory = [], userDetails = null) => {
     try {
@@ -35,4 +35,4 @@ const getAiChatResponse = async (userMessage, chatHistory = [], userDetails = nu
     }
 };
 
-module.exports = { getAiChatResponse };
+export { getAiChatResponse };

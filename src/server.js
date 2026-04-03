@@ -1,13 +1,13 @@
-const dotenv = require("dotenv");
-const connectDB = require("./database/db");
-const app = require("./middleware/serverMiddleWare");
+import dotenv from "dotenv";
+import connectDB from "./database/db.js";
+import app from "./middleware/serverMiddleWare.js";
 // Load env variables FIRST
 dotenv.config();
 connectDB();
 // Routes import
-const homePageRoutes = require("./routes/homepage/homePageRoutes");
-const astrologerRoutes = require("./routes/astrologer/astrologerRoutes");
-const user = require("./routes/user/userRoute");
+import homePageRoutes from "./routes/homepage/homePageRoutes.js";
+import astrologerRoutes from "./routes/astrologer/astrologerRoutes.js";
+import user from "./routes/user/userRoute.js";
 // Test route
 app.get("/", (req, res) => {
     res.send("Server is running");

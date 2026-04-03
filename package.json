@@ -3,10 +3,12 @@
     "version": "1.0.0",
     "description": "astroBackend is the ultimate backend solution",
     "main": "src/server.js",
+    "type": "module",
     "scripts": {
         "setup": "npm install && npm update",
         "start": "node src/server.js",
         "dev": "nodemon src/server.js"
+        
     },
     "keywords": [
         "express",

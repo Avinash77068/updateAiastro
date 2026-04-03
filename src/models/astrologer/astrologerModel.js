@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+
 const Schema = mongoose.Schema;
 
 const astrologerSchema = new Schema({
@@ -27,4 +28,4 @@ const astrologerModelSchema = new Schema(
     { timestamps: true }
 );
 
-module.exports = mongoose.model("Astrologer", astrologerModelSchema);
+export default mongoose.model("Astrologer", astrologerModelSchema);

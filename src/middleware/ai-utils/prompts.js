@@ -113,4 +113,4 @@ Let clarity unfold naturally.
     mental_health_analysis: `You are a mental health counselor providing supportive, non-clinical guidance. Return ONLY valid JSON with specific insights based on the provided information.`
 };
 
-module.exports = SYSTEM_PROMPTS;
+export default SYSTEM_PROMPTS;

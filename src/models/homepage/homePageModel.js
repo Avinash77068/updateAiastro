@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const sidebarItemSchema = new Schema({
@@ -121,4 +121,4 @@ const homePageSchema = new Schema(
     { timestamps: true }
 );
 
-module.exports = mongoose.model("HomePage", homePageSchema);
+export default mongoose.model("HomePage", homePageSchema);

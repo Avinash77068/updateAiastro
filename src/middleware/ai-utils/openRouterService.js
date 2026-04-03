@@ -1,4 +1,4 @@
-const axios = require('axios');
+import axios from 'axios';
 
 const callOpenRouter = async (messages) => {
     const response = await axios.post(
@@ -22,4 +22,4 @@ const callOpenRouter = async (messages) => {
     return response.data.choices[0].message.content;
 };
 
-module.exports = { callOpenRouter };
+export { callOpenRouter };

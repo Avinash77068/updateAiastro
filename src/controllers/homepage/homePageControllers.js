@@ -1,4 +1,4 @@
-const homePageModel = require("../../models/homepage/homePageModel");
+import homePageModel from "../../models/homepage/homePageModel.js";
 
 const getHomePageData = async (req, res) => {
     try {
@@ -149,4 +149,4 @@ const createHomePageData = async (req, res) => {
     }
 }
 
-module.exports = { getHomePageData, createHomePageData };
+export { getHomePageData, createHomePageData };

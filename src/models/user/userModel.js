@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -31,6 +31,36 @@ const userSchema = new mongoose.Schema({
         unique: true,
         match: [/^[0-9]{10}$/, "Please add a valid 10-digit phone number"]
     },
+    phoneNumber: {
+        type: String
+    },
+    dateOfBirth: {
+        type: Date
+    },
+    place: {
+        type: String
+    },
+    gender: {
+        type: String,
+        enum: ["male", "female", "other"]
+    },
+    chat: [{
+        message: {
+            type: String,
+            required: true
+        },
+        sender: {
+            type: String,
+            required: true
+        },
+        astroResponse: {
+            type: String
+        },
+        timestamp: {
+            type: Date,
+            default: Date.now
+        }
+    }],
     otp: {
         code: String,
         expiresAt: Date,
@@ -63,15 +93,30 @@ const userSchema = new mongoose.Schema({
         enum: ["male", "female", "other"]
     },
     chat: [{
-        message: String,
-        sender: String,
-        astroResponse: String,
-        timestamp: Date
-    }]
+        message: {
+            type: String,
+            required: true
+        },
+        sender: {
+            type: String,
+            required: true
+        },
+        astroResponse: {
+            type: String
+        },
+        timestamp: {
+            type: Date,
+            default: Date.now
+        }
+    }],
+    profileImage: {
+        type: String,
+        required: false,
+        default: "https://st4.depositphotos.com/3538469/23076/v/450/depositphotos_230769078-stock-illustration-icon-of-avatar.jpg"
+    }
 }, {
     timestamps: true
 });
-
 
 // Sign JWT and return
 userSchema.methods.getSignedJwtToken = function() {
@@ -123,4 +168,4 @@ userSchema.methods.verifyOTP = function(enteredOTP) {
     return true;
 };
 
-module.exports = mongoose.model("User", userSchema);
+export default mongoose.model("User", userSchema);

@@ -1,6 +1,6 @@
-const User = require("../../models/user/userModel");
-const bcrypt = require("bcryptjs");
-const { getAiChatResponse } = require("../../middleware/ai-utils");
+import User from "../../models/user/userModel.js";
+import bcrypt from "bcryptjs";
+import { getAiChatResponse } from "../../middleware/ai-utils/index.js";
 // @desc    Register user
 // @route   POST /user/signup
 // @access  Public
@@ -16,10 +16,10 @@ const signup = async (req, res) => {
             });
         }
         if (email || phone) {
+            // Check if user already exists
             const existingUser = await User.findOne({
                 $or: [{ email: email.toLowerCase() }, { phone }]
-            });
-
+            }); 
             if (existingUser) {
                 return res.status(400).json({
                     success: false,
@@ -60,6 +60,7 @@ const signup = async (req, res) => {
                     dateOfBirth: user.dateOfBirth,
                     gender: user.gender,
                     place: user.place,
+                    profileImage: user.profileImage,
                     isVerified: user.isVerified,
                     role: user.role
                 },
@@ -416,7 +417,7 @@ const chatResponse = async (req, res) => {
         });
     }
 }
-module.exports = {
+export {
     signup,
     login,
     sendOTP,

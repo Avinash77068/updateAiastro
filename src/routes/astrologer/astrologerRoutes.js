@@ -1,8 +1,8 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const { getAstrologerData, createAstrologerData } = require("../../controllers/astrologer/astrologerControllers");
+import { getAstrologerData, createAstrologerData } from "../../controllers/astrologer/astrologerControllers.js";
 
 router.get("/", getAstrologerData);
 router.post("/create", createAstrologerData);
 
-module.exports = router;
+export default router;

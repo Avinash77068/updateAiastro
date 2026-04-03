@@ -11,4 +11,4 @@ const buildUserContext = (userDetails) => {
 Use this information to provide personalized astrological insights based on their birth details.`;
 };
 
-module.exports = { buildUserContext };
+export { buildUserContext };

@@ -1,6 +1,4 @@
-
-
-const astrologerModel = require("../../models/astrologer/astrologerModel");
+import astrologerModel from "../../models/astrologer/astrologerModel.js";
 
 const getAstrologerData = async (req, res) => {
     try {
@@ -117,4 +115,4 @@ const createAstrologerData = async (req, res) => {
     }
 }
 
-module.exports = { getAstrologerData, createAstrologerData };
+export { getAstrologerData, createAstrologerData };

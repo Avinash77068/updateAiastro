@@ -1,6 +1,6 @@
-const cors = require("cors");
-const express = require("express");
+import cors from "cors";
+import express from "express";
 const app = express();
 app.use(cors());
 app.use(express.json());
-module.exports = app;
+export default app;
