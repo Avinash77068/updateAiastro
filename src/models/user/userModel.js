@@ -11,8 +11,9 @@ const userSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: [false, "Please add an email"],
+        required: false,
         unique: true,
+        sparse: true, // Allows multiple null values, only enforces uniqueness on non-null values
         lowercase: true,
         match: [
             /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
@@ -27,8 +28,9 @@ const userSchema = new mongoose.Schema({
     },
     phone: {
         type: String,
-        required: [false, "Please add a phone number"],
+        required: false,
         unique: true,
+        sparse: true, // Allows multiple null values, only enforces uniqueness on non-null values
         match: [/^[0-9]{10}$/, "Please add a valid 10-digit phone number"]
     },
     otp: {

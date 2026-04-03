@@ -15,15 +15,18 @@ const signup = async (req, res) => {
                 message: "Please provide all required fields"
             });
         }
+        // Check if user already exists (if email or phone provided)
         if (email || phone) {
-            const existingUser = await User.findOne({
-                $or: [{ email: email.toLowerCase() }, { phone }]
-            });
+            const orConditions = [];
+            if (email) orConditions.push({ email: email.toLowerCase() });
+            if (phone) orConditions.push({ phone });
+            
+            const existingUser = await User.findOne({ $or: orConditions });
 
             if (existingUser) {
                 return res.status(400).json({
                     success: false,
-                    message: existingUser.email === email.toLowerCase()
+                    message: existingUser.email === email?.toLowerCase()
                         ? "Email already registered"
                         : "Phone number already registered"
                 });
@@ -37,9 +40,9 @@ const signup = async (req, res) => {
 
         const user = await User.create({
             name,
-            email: email.toLowerCase(),
+            email: email ? email.toLowerCase() : null, // Set to null if empty
             password: hashedPassword,
-            phone,
+            phone: phone || null, // Set to null if empty
             dateOfBirth,
             gender,
             place
