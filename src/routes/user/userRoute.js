@@ -7,7 +7,8 @@ const {
     verifyOTP,
     getProfile,
     updateProfile,
-    chatResponse
+    chatResponse,
+    getChatHistory
 } = require("../../controllers/user/userController");
 
 // Import auth middleware if it exists
@@ -34,7 +35,8 @@ router.post("/signup", signup);
 router.post("/login", login);
 router.post("/send-otp", sendOTP);
 router.post("/verify-otp", verifyOTP);
-router.post("/chat", chatResponse)
+router.post("/chat", chatResponse);
+router.post("/chat-history", getChatHistory);
 
 // Protected routes
 router.get("/profile", protect, getProfile);

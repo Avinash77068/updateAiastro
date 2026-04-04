@@ -68,6 +68,7 @@ const userSchema = new mongoose.Schema({
         message: String,
         sender: String,
         astroResponse: String,
+        astrologerId: String,
         timestamp: Date
     }]
 }, {

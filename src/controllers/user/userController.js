@@ -352,7 +352,7 @@ const updateProfile = async (req, res) => {
 // @chat for the user
 const chatResponse = async (req, res) => {
     try {
-        const { userId, message } = req.body;
+        const { userId, message, astrologerId } = req.body;
 
         if (!userId || !message) {
             return res.status(400).json({
@@ -384,6 +384,7 @@ const chatResponse = async (req, res) => {
                 message: message,
                 sender: "user",
                 astroResponse: "Sorry, Unable to Understand Your Query",
+                astrologerId: astrologerId || null,
                 timestamp: new Date()
             });
         }
@@ -392,6 +393,7 @@ const chatResponse = async (req, res) => {
                 message: message,
                 sender: "user",
                 astroResponse: astroResponse,
+                astrologerId: astrologerId || null,
                 timestamp: new Date()
             });
 
@@ -419,6 +421,70 @@ const chatResponse = async (req, res) => {
         });
     }
 }
+// @desc    Get chat history between user and astrologer
+// @route   POST /user/chat-history
+// @access  Private
+const getChatHistory = async (req, res) => {
+    try {
+        const { userId, astrologerId } = req.body;
+
+        // Validation
+        if (!userId || !astrologerId) {
+            return res.status(400).json({
+                success: false,
+                message: "userId and astrologerId are required"
+            });
+        }
+
+        // Find user
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            });
+        }
+
+        // Filter chat messages for specific astrologer
+        const astrologerChats = user.chat.filter(chat => 
+            chat.astrologerId === astrologerId
+        );
+
+        // Get astrologer details (you'll need to import astrologer model)
+        let astrologerDetails = null;
+        try {
+            const astrologerModel = require('../../models/astrologer/astrologerModel');
+            const astrologerData = await astrologerModel.findOne();
+            if (astrologerData) {
+                astrologerDetails = astrologerData.astrologerList.find(
+                    astro => astro.id === astrologerId
+                );
+            }
+        } catch (error) {
+            console.log("Astrologer model not found, continuing without details");
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Chat history retrieved successfully",
+            data: {
+                userId,
+                astrologerId,
+                astrologerDetails,
+                chatHistory: astrologerChats,
+                totalChats: astrologerChats.length
+            }
+        });
+
+    } catch (error) {
+        console.error("Get chat history error:", error);
+        res.status(500).json({
+            success: false,
+            message: error.message || "Server error retrieving chat history"
+        });
+    }
+};
+
 module.exports = {
     signup,
     login,
@@ -426,5 +492,6 @@ module.exports = {
     verifyOTP,
     getProfile,
     updateProfile,
-    chatResponse
+    chatResponse,
+    getChatHistory
 };
